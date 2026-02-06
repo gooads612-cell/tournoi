@@ -1,28 +1,34 @@
-name: Watch Tournament Registration
+name: Page Change Monitor
 
 on:
   schedule:
-    - cron: "*/2 * * * *" # toutes les 2 minutes
+    - cron: "*/5 * * * *"  # toutes les 5 minutes
   workflow_dispatch:
 
 jobs:
-  watch:
+  check_page:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      # 1️⃣ Checkout du repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check inscription status
+      # 2️⃣ Rendre le script exécutable
+      - name: Rendre le script exécutable
+        run: chmod +x check_page_hash.sh
+
+      # 3️⃣ Exécuter le script de check
+      - name: Check page hash
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: |
-          bash check_page_hash.sh
+        run: bash check_page_hash.sh
 
-      - name: Save state
+      # 4️⃣ Commit du hash mis à jour
+      - name: Commit updated hash
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add inscription_opened.txt
-          git commit -m "Inscriptions ouvertes" || echo "No change"
+          git add page_hash.txt
+          git commit -m "Update page hash" || echo "No changes to commit"
           git push
