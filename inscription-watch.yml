@@ -1,0 +1,28 @@
+name: Watch Tournament Registration
+
+on:
+  schedule:
+    - cron: "*/2 * * * *" # toutes les 2 minutes
+  workflow_dispatch:
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check inscription status
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          bash scripts/check_inscription.sh
+
+      - name: Save state
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add inscription_opened.txt
+          git commit -m "Inscriptions ouvertes" || echo "No change"
+          git push
