@@ -17,7 +17,7 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          bash scripts/check_inscription.sh
+          bash check_page_hash.sh
 
       - name: Save state
         run: |
