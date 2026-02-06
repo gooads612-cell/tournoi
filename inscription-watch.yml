@@ -32,3 +32,4 @@ jobs:
           git add page_hash.txt
           git commit -m "Update page hash" || echo "No changes to commit"
           git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
