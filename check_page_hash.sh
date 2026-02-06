@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL="https://tournoi.stadeclermontoistt.com/inscrits"
+URL="https://httpbin.org/uuid"
 STATE_FILE="page_hash.txt"
 
 # Télécharger le contenu de la page
