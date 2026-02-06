@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL="https://example.com/tournoi"
+URL="https://tournoi.stadeclermontoistt.com/inscrits"
 STATE_FILE="page_hash.txt"
 
 # Télécharger le contenu de la page
